@@ -1,0 +1,62 @@
+:root {
+  --ink: #1c3550;
+  --forest: #173f68;
+  --muted: #687c90;
+  --mint: #e7f0f7;
+  --paper: #f3f6f9;
+  --line: #d9e3ec;
+  --accent-blue: #176da8;
+  --accent-blue-dark: #105480;
+  --gold: #d9b968;
+  --gold-dark: #96752f;
+  --serif: 'Shippori Mincho', 'Yu Mincho', serif;
+  --sans: 'Zen Kaku Gothic New', 'Yu Gothic', sans-serif;
+  --mono: 'DM Mono', Consolas, monospace;
+
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  overscroll-behavior-y: contain;
+  -webkit-touch-callout: none;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+#root {
+  min-height: 100vh;
+}
