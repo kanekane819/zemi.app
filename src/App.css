@@ -53,7 +53,7 @@
 .sky-banner::after {
   position: absolute;
   right: -8%;
-  bottom: -34px;
+  bottom: -22px;
   left: -8%;
   height: 62px;
   border-radius: 50% 50% 0 0 / 70% 70% 0 0;
@@ -68,7 +68,7 @@
 
 .sky-banner::after {
   right: -18%;
-  bottom: -47px;
+  bottom: -35px;
   left: 32%;
   height: 72px;
   background: rgba(255, 255, 255, 0.48);
@@ -84,14 +84,14 @@
 }
 
 .sky-cloud-left {
-  top: 64px;
+  top: 52px;
   left: 16px;
   width: 84px;
   box-shadow: 14px 6px 0 rgba(255, 255, 255, 0.42), 31px -4px 0 rgba(255, 255, 255, 0.3);
 }
 
 .sky-cloud-right {
-  top: 83px;
+  top: 71px;
   right: 12px;
   width: 112px;
   box-shadow: -20px -7px 0 rgba(255, 255, 255, 0.4), -44px 4px 0 rgba(255, 255, 255, 0.28);
