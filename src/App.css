@@ -41,7 +41,7 @@
 .sky-banner {
   position: relative;
   width: min(100%, 430px);
-  height: 122px;
+  height: 108px;
   overflow: hidden;
   margin: -62px auto 0;
   background:
@@ -84,14 +84,14 @@
 }
 
 .sky-cloud-left {
-  top: 76px;
+  top: 64px;
   left: 16px;
   width: 84px;
   box-shadow: 14px 6px 0 rgba(255, 255, 255, 0.42), 31px -4px 0 rgba(255, 255, 255, 0.3);
 }
 
 .sky-cloud-right {
-  top: 96px;
+  top: 83px;
   right: 12px;
   width: 112px;
   box-shadow: -20px -7px 0 rgba(255, 255, 255, 0.4), -44px 4px 0 rgba(255, 255, 255, 0.28);
@@ -99,7 +99,7 @@
 
 .flight-path {
   position: absolute;
-  top: 77px;
+  top: 68px;
   right: 58px;
   width: 124px;
   height: 37px;
@@ -111,7 +111,7 @@
 .sky-plane {
   position: absolute;
   z-index: 2;
-  top: 68px;
+  top: 64px;
   right: 34px;
   color: #176da8;
   transform: rotate(-12deg);
@@ -482,6 +482,8 @@
 
 .my-page {
   width: min(100%, 680px);
+  display: grid;
+  gap: 12px;
   padding-top: 10px;
 }
 
@@ -489,8 +491,11 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 18px 0 22px;
-  border-bottom: 1px solid var(--line);
+  padding: 16px;
+  border: 1px solid #dfe9f1;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(30, 70, 106, 0.045);
 }
 
 .profile-avatar {
@@ -527,16 +532,21 @@
 .my-page-link {
   display: flex;
   width: 100%;
-  min-height: 82px;
+  min-height: 74px;
   align-items: center;
   gap: 12px;
-  padding: 12px 2px;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  background: transparent;
+  padding: 12px 14px;
+  border: 1px solid #dfe9f1;
+  border-radius: 8px;
+  background: #fff;
   color: var(--accent-blue);
   text-align: left;
   cursor: pointer;
+  box-shadow: 0 5px 14px rgba(30, 70, 106, 0.045);
+}
+
+.my-page-link:hover {
+  border-color: #b8d5e9;
 }
 
 .my-page-link:hover .my-page-link-copy strong {
@@ -605,11 +615,19 @@
 }
 
 .travel-settings {
-  padding: 22px 0 0;
+  padding: 15px;
+  border: 1px solid #dfe9f1;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(30, 70, 106, 0.045);
 }
 
 .travel-records {
-  padding: 22px 0 0;
+  padding: 15px;
+  border: 1px solid #dfe9f1;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(30, 70, 106, 0.045);
 }
 
 .travel-records .settings-heading {
