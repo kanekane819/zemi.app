@@ -60,3 +60,7 @@ button:disabled {
 #root {
   min-height: 100vh;
 }
+
+#nl-badge-frame {
+  display: none !important;
+}
