@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, Compass, ExternalLink, Heart, Landmark, Leaf, MapPin, Search, SlidersHorizontal, Sparkles, Timer, Trash2, UserRound, UtensilsCrossed, Waves } from 'lucide-react'
 import './App.css'
 
-type CityId = 'yamaguchi' | 'nagato' | 'shimonoseki'
+type CityId = 'yamaguchi' | 'mine' | 'nagato' | 'shimonoseki'
 type Genre = '歴史・文化' | '自然' | '温泉' | 'グルメ'
 type View = 'discover' | 'favorites' | 'mypage'
 
@@ -15,6 +15,11 @@ type Spot = {
   stayMinutes: number
   summary: string
   keywords: string[]
+  openingHours?: string
+  closedDays?: string
+  price?: string
+  address?: string
+  infoSource?: string
   localPick: boolean
   pairIds: string[]
   image: string
@@ -28,20 +33,40 @@ type VisitRecord = {
 
 const cityNames: Record<CityId, string> = {
   yamaguchi: '山口市',
+  mine: '美祢市',
   nagato: '長門市',
   shimonoseki: '下関市',
 }
 
 const spots: Spot[] = [
   {
-    id: 'rurikoji', name: '瑠璃光寺 五重塔', city: 'yamaguchi', cityName: '山口市', genre: '歴史・文化', stayMinutes: 45,
-    summary: '香山公園に佇む、山口を代表する歴史的な風景。静かな境内をゆっくり歩くひとときを。', keywords: ['寺院', '歴史', '景色', 'ドライブ', '散歩'], localPick: true, pairIds: ['yuda'],
+    id: 'rurikoji', name: '瑠璃光寺 五重塔', city: 'yamaguchi', cityName: '山口市', genre: '歴史・文化', stayMinutes: 60,
+    summary: '香山公園に佇む、山口を代表する歴史的な風景。静かな境内をゆっくり歩くひとときを。', keywords: ['寺院', '歴史', '景色', 'ドライブ', '散歩'],
+    openingHours: '24時間営業', closedDays: '休業日なし', price: '無料', address: '〒753-0095 山口県山口市木町 1-2 8', infoSource: 'Google（資料記載）', localPick: true, pairIds: ['yuda', 'kitsune', 'vansan'],
     image: 'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?auto=format&fit=crop&w=1000&q=80', imageTone: 'sage',
   },
   {
     id: 'yuda', name: '湯田温泉街', city: 'yamaguchi', cityName: '山口市', genre: '温泉', stayMinutes: 30,
-    summary: '足湯や温泉街の散策を楽しめる、山口市中心部の立ち寄りスポット。', keywords: ['温泉', '露天風呂', 'リラックス', '日帰り', 'ドライブ', 'カフェ'], localPick: true, pairIds: ['rurikoji'],
+    summary: '足湯や温泉街の散策を楽しめる、山口市中心部の立ち寄りスポット。', keywords: ['温泉', '露天風呂', 'リラックス', '日帰り', 'ドライブ', 'カフェ'], localPick: true, pairIds: ['rurikoji', 'kitsune', 'vansan'],
     image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80', imageTone: 'coral',
+  },
+  {
+    id: 'akiyoshido', name: '秋芳洞', city: 'mine', cityName: '美祢市', genre: '自然', stayMinutes: 90,
+    summary: '秋吉台の地下に広がる鍾乳洞。洞内を歩きながら、自然がつくった景観を楽しめます。', keywords: ['鍾乳洞', '洞窟', '秋吉台', '自然', 'ドライブ', '観光'],
+    openingHours: '9:00〜17:30', closedDays: '休業日なし', price: '大人1,600円 / 中学生1,300円 / 小学生850円', address: '〒754-0511 山口県美祢市秋芳町秋吉3506-2', infoSource: 'Google、ChatGPT（資料記載）', localPick: false, pairIds: [],
+    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80', imageTone: 'green',
+  },
+  {
+    id: 'kitsune', name: '狐の足あと', city: 'yamaguchi', cityName: '山口市', genre: '温泉', stayMinutes: 90,
+    summary: '湯田温泉の足湯と喫茶を楽しめる施設。散策の途中の休憩にもおすすめです。', keywords: ['足湯', '喫茶', 'カフェ', '温泉', 'ドライブ', '休憩'],
+    openingHours: '9:00〜21:30', closedDays: '休業日なし', price: '足湯: 大人200円 / 小中学生100円', address: '〒753-0056 山口県山口市湯田温泉2丁目1-3', infoSource: 'Google（資料記載）', localPick: false, pairIds: ['yuda', 'rurikoji', 'vansan'],
+    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80', imageTone: 'coral',
+  },
+  {
+    id: 'vansan', name: 'Italian Kitchen VANSAN 湯田店', city: 'yamaguchi', cityName: '山口市', genre: 'グルメ', stayMinutes: 90,
+    summary: '湯田温泉エリアにあるイタリアンレストラン。食事やカフェ利用の候補です。', keywords: ['イタリアン', 'レストラン', 'カフェ', 'ランチ', 'グルメ', 'ドライブ'],
+    openingHours: '11:00〜23:00', closedDays: '休業日なし', price: '予算目安 2,000円', address: '〒753-0056 山口県山口市湯田温泉6丁目8-3', infoSource: 'Google（資料記載）', localPick: false, pairIds: ['yuda', 'kitsune', 'rurikoji'],
+    image: 'https://images.unsplash.com/photo-1498654896293-37a604a6c782?auto=format&fit=crop&w=1000&q=80', imageTone: 'yellow',
   },
   {
     id: 'motonosumi', name: '元乃隅神社', city: 'nagato', cityName: '長門市', genre: '歴史・文化', stayMinutes: 60,
@@ -328,7 +353,22 @@ function App() {
                 <div className="spot-meta"><span>{selectedSpot.cityName}</span><span>{selectedSpot.genre}</span><span><Timer size={14} /> 約{selectedSpot.stayMinutes}分</span></div>
                 <h3>{selectedSpot.name}</h3>
                 <p className="detail-description">{selectedSpot.summary}</p>
-                <p className="verification-note">営業時間・料金・休業日は未確認です。お出かけ前に公式情報をご確認ください。</p>
+                {(selectedSpot.openingHours || selectedSpot.closedDays || selectedSpot.price || selectedSpot.address) && (
+                  <dl className="spot-info">
+                    {[
+                      ['営業時間', selectedSpot.openingHours],
+                      ['休業日', selectedSpot.closedDays],
+                      ['料金・予算', selectedSpot.price],
+                      ['住所', selectedSpot.address],
+                    ].filter((item): item is [string, string] => Boolean(item[1])).map(([label, value]) => (
+                      <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+                    ))}
+                  </dl>
+                )}
+                <p className="verification-note">
+                  {selectedSpot.infoSource ? `情報元: ${selectedSpot.infoSource}。` : ''}
+                  資料記載の情報です。営業時間・料金・所在地は変更される場合があるため、訪問前に公式情報をご確認ください。
+                </p>
                 <button className={visitRecords.some((record) => record.spotId === selectedSpot.id) ? 'visit-button is-visited' : 'visit-button'} onClick={() => toggleVisitRecord(selectedSpot.id)}>
                   <Check size={16} />
                   {visitRecords.some((record) => record.spotId === selectedSpot.id) ? '訪問記録を取り消す' : '訪問済みにする'}

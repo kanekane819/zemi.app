@@ -1002,6 +1002,32 @@
   line-height: 1.9;
 }
 
+.spot-info {
+  margin: 16px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.spot-info > div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+.spot-info dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.spot-info dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
 .verification-note {
   margin: 13px 0 16px;
   color: #826e42;
