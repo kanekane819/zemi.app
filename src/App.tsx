@@ -264,10 +264,6 @@ function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <a className="brand" href="#top" onClick={() => { setView('discover'); setSearchSubmitted(false); setSelectedId(null) }}>
-          <span className="brand-mark">+1</span>
-          <span>やまぐち<span className="brand-plus">＋</span>1</span>
-        </a>
         <button className="mobile-favorites-button" aria-label="お気に入りを開く" title="お気に入りを開く" onClick={() => { setView('favorites'); setSelectedId(null) }}>
           <Heart size={17} fill={view === 'favorites' ? 'currentColor' : 'none'} />
           <span>{favorites.length}</span>
@@ -285,11 +281,14 @@ function App() {
         </nav>
       </header>
 
-      <div className="sky-banner" aria-hidden="true">
+      <div className="sky-banner">
+        <a className="sky-brand" href="#top" onClick={() => { setView('discover'); setSearchSubmitted(false); setSelectedId(null) }}>
+          やまぐち<span className="brand-plus">＋</span>1
+        </a>
         <span className="sky-cloud sky-cloud-left" />
         <span className="sky-cloud sky-cloud-right" />
         <span className="flight-path" />
-        <Plane className="sky-plane" size={34} strokeWidth={1.5} />
+        <Plane className="sky-plane" size={34} strokeWidth={1.5} aria-hidden="true" />
         <span className="sky-sparkle">✦</span>
       </div>
 
