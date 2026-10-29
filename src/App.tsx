@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Check, Compass, ExternalLink, Heart, Landmark, Leaf, MapPin, Search, SlidersHorizontal, Sparkles, Timer, Trash2, UserRound, UtensilsCrossed, Waves } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Compass, ExternalLink, Heart, Landmark, Leaf, MapPin, Plane, Search, SlidersHorizontal, Sparkles, Timer, Trash2, UserRound, UtensilsCrossed, Waves } from 'lucide-react'
 import './App.css'
 
 type CityId = 'yamaguchi' | 'mine' | 'nagato' | 'shimonoseki'
@@ -284,6 +284,14 @@ function App() {
           </button>
         </nav>
       </header>
+
+      <div className="sky-banner" aria-hidden="true">
+        <span className="sky-cloud sky-cloud-left" />
+        <span className="sky-cloud sky-cloud-right" />
+        <span className="flight-path" />
+        <Plane className="sky-plane" size={34} strokeWidth={1.5} />
+        <span className="sky-sparkle">✦</span>
+      </div>
 
       <main id="top" className="main-layout">
         {view === 'discover' && !searchSubmitted && (
