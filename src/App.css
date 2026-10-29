@@ -41,7 +41,7 @@
 .sky-banner {
   position: relative;
   width: min(100%, 430px);
-  height: 158px;
+  height: 122px;
   overflow: hidden;
   margin: -62px auto 0;
   background:
@@ -84,14 +84,14 @@
 }
 
 .sky-cloud-left {
-  top: 92px;
+  top: 76px;
   left: 16px;
   width: 84px;
   box-shadow: 14px 6px 0 rgba(255, 255, 255, 0.42), 31px -4px 0 rgba(255, 255, 255, 0.3);
 }
 
 .sky-cloud-right {
-  top: 121px;
+  top: 96px;
   right: 12px;
   width: 112px;
   box-shadow: -20px -7px 0 rgba(255, 255, 255, 0.4), -44px 4px 0 rgba(255, 255, 255, 0.28);
@@ -99,7 +99,7 @@
 
 .flight-path {
   position: absolute;
-  top: 86px;
+  top: 77px;
   right: 58px;
   width: 124px;
   height: 37px;
@@ -111,7 +111,7 @@
 .sky-plane {
   position: absolute;
   z-index: 2;
-  top: 76px;
+  top: 68px;
   right: 34px;
   color: #176da8;
   transform: rotate(-12deg);
@@ -1341,7 +1341,7 @@ select:focus-visible {
 
   .main-layout {
     gap: 20px;
-    padding: 15px 14px 96px;
+    padding: 8px 14px 96px;
   }
 
   .filter-panel {
