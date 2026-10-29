@@ -1,10 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Check, Compass, ExternalLink, Heart, Landmark, Leaf, MapPin, Search, SlidersHorizontal, Sparkles, Timer, Trash2, UserRound, UtensilsCrossed, Waves } from 'lucide-react'
 import './App.css'
 
 type CityId = 'yamaguchi' | 'mine' | 'nagato' | 'shimonoseki'
 type Genre = '歴史・文化' | '自然' | '温泉' | 'グルメ'
 type View = 'discover' | 'favorites' | 'mypage'
+type AppScreen = { view: View; searchSubmitted: boolean; selectedId: string | null }
+
+function readAppScreen(value: unknown): AppScreen | null {
+  if (typeof value !== 'object' || value === null || !('yamaguchiPlusOne' in value)) return null
+
+  const screen = value.yamaguchiPlusOne
+  if (typeof screen !== 'object' || screen === null || !('view' in screen) || !('searchSubmitted' in screen) || !('selectedId' in screen)) return null
+  if (screen.view !== 'discover' && screen.view !== 'favorites' && screen.view !== 'mypage') return null
+  if (typeof screen.searchSubmitted !== 'boolean') return null
+  if (screen.selectedId !== null && (typeof screen.selectedId !== 'string' || !spots.some((spot) => spot.id === screen.selectedId))) return null
+
+  return { view: screen.view, searchSubmitted: screen.searchSubmitted, selectedId: screen.selectedId }
+}
+
+function appScreenKey(screen: AppScreen) {
+  return `${screen.view}:${screen.searchSubmitted}:${screen.selectedId ?? ''}`
+}
 
 type Spot = {
   id: string
@@ -143,6 +160,39 @@ function App() {
   const [showMorePairs, setShowMorePairs] = useState(false)
   const [favorites, setFavorites] = useState<string[]>(readFavorites)
   const [visitRecords, setVisitRecords] = useState<VisitRecord[]>(readVisitRecords)
+  const [initialScreen] = useState<AppScreen>(() => ({ view, searchSubmitted, selectedId }))
+  const lastHistoryScreenKey = useRef(appScreenKey(initialScreen))
+
+  useEffect(() => {
+    const currentState = window.history.state
+    const preservedState = typeof currentState === 'object' && currentState !== null ? currentState : {}
+    window.history.replaceState({ ...preservedState, yamaguchiPlusOne: initialScreen }, '')
+
+    function restoreScreen(event: PopStateEvent) {
+      const previousScreen = readAppScreen(event.state)
+      if (!previousScreen) return
+
+      lastHistoryScreenKey.current = appScreenKey(previousScreen)
+      setView(previousScreen.view)
+      setSearchSubmitted(previousScreen.searchSubmitted)
+      setSelectedId(previousScreen.selectedId)
+      setShowMorePairs(false)
+    }
+
+    window.addEventListener('popstate', restoreScreen)
+    return () => window.removeEventListener('popstate', restoreScreen)
+  }, [initialScreen])
+
+  useEffect(() => {
+    const nextScreen: AppScreen = { view, searchSubmitted, selectedId }
+    const nextKey = appScreenKey(nextScreen)
+    if (nextKey === lastHistoryScreenKey.current) return
+
+    const currentState = window.history.state
+    const preservedState = typeof currentState === 'object' && currentState !== null ? currentState : {}
+    window.history.pushState({ ...preservedState, yamaguchiPlusOne: nextScreen }, '')
+    lastHistoryScreenKey.current = nextKey
+  }, [view, searchSubmitted, selectedId])
 
   useEffect(() => {
     window.localStorage.setItem(favoriteStorageKey, JSON.stringify(favorites))
