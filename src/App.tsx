@@ -361,7 +361,7 @@ function App() {
               <h2>{selectedSpot ? 'スポット詳細' : view === 'favorites' ? 'お気に入り' : view === 'mypage' ? 'マイページ' : searchSubmitted ? '検索結果' : `${cityNames[city]}のおすすめ`}</h2>
             </div>
             {selectedSpot ? (
-              <button className="text-button back-button" onClick={() => setSelectedId(null)}><ArrowLeft size={16} /> 一覧に戻る</button>
+              <button className="text-button back-button" onClick={() => window.history.back()}><ArrowLeft size={16} /> 一覧に戻る</button>
             ) : view === 'discover' && searchSubmitted ? (
               <div className="results-actions">
                 <span className="result-count">{visibleSpots.length}<span> SPOTS</span></span>
