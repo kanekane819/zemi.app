@@ -355,7 +355,7 @@ function App() {
 
         {(view !== 'discover' || searchSubmitted) && (
         <section className="content-panel" aria-live="polite">
-          <div className="section-heading">
+          <div className={view === 'mypage' ? 'section-heading my-page-heading' : 'section-heading'}>
             <div>
               <p className="eyebrow muted-eyebrow">{view === 'favorites' ? 'SAVED PLACES' : view === 'mypage' ? 'MY PAGE' : 'YOUR NEXT STOP'}</p>
               <h2>{selectedSpot ? 'スポット詳細' : view === 'favorites' ? 'お気に入り' : view === 'mypage' ? 'マイページ' : searchSubmitted ? '検索結果' : `${cityNames[city]}のおすすめ`}</h2>
