@@ -471,7 +471,7 @@ function App() {
         )}
       </main>
       <nav className="mobile-tabbar" aria-label="ページ">
-        <button className={view === 'discover' ? 'mobile-tab active' : 'mobile-tab'} onClick={() => { setView('discover'); setSearchSubmitted(true); setSelectedId(null) }}>
+        <button className={view === 'discover' && searchSubmitted ? 'mobile-tab active' : 'mobile-tab'} onClick={() => { setView('discover'); setSearchSubmitted(true); setSelectedId(null) }}>
           <Compass size={19} /> おすすめ
         </button>
         <button className={view === 'discover' && !searchSubmitted ? 'mobile-tab active' : 'mobile-tab'} onClick={() => { setView('discover'); setSearchSubmitted(false); setSelectedId(null) }}>
